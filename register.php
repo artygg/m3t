@@ -79,10 +79,10 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 
         $sql = "INSERT INTO users (`Username`, `Password`, `Name`, `Surname`) VALUES (:username, :password, :name, :surname)";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam('username', $username);
-        $stmt->bindParam('password', $hashedPassword);
-        $stmt->bindParam('name', $name);
-        $stmt->bindParam('surname', $surname);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':surname', $surname);
         $stmt->execute();
         $_SESSION["id"] =  $conn->lastInsertId();;
     } catch (Exception $e) {
