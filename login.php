@@ -52,13 +52,14 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         print_r($user);
+        $stmt->closeCursor();
         if (!$user || !password_verify($password, $user['Password'])) {
             throw new Exception("Invalid username or password.");
         } else {
             $_SESSION["id"] =  $user["id"];
-            header("Location: index.php");
+            //header("Location: index.php");
         }
-        $stmt->closeCursor();
+
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
