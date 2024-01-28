@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':surname', $surname);
         $stmt->execute();
-        $_SESSION["auth"] = true;
+        $_SESSION["id"] =  $conn->lastInsertId();;
         header("Location: index.php");
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();

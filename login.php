@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
-    $_SESSION["auth"] = true;
+    $_SESSION["id"] =  $user["id"];
     header("Location: index.php");
 } else {
     echo "FORBIDDEN!";
