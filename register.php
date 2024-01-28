@@ -48,6 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
     try{
         $username = strtolower(htmlspecialchars($_POST["username"]));
         $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
         $stmt->bindParam(username, $username);
         $stmt->execute();
@@ -85,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->execute();
         $_SESSION["id"] =  $conn->lastInsertId();;
     } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+        echo $e;
     }
 
 } else {
