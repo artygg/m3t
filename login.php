@@ -44,19 +44,21 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             throw new Exception("Username and password are required.");
         }
         $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username LIKE :username LIMIT 1;");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE Username LIKE :username LIMIT 1;");
         $stmt->bindParam('username', $username);
         $stmt->execute();
         $stmt->closeCursor();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$user || !password_verify($password, $user['Password'])) {
             throw new Exception("Invalid username or password.");
+        } else {
+            $_SESSION["id"] =  $user["id"];
+            header("Location: index.php");
         }
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
-    $_SESSION["id"] =  $user["id"];
-    header("Location: index.php");
+
 } else {
     echo "FORBIDDEN!";
 }
