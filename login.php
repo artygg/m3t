@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             throw new Exception("Invalid username or password.");
         } else {
             $_SESSION["id"] =  $user["id"];
-            //header("Location: index.php");
+            header("Location: index.php");
         }
 
     } catch (Exception $e) {
