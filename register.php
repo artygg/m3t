@@ -39,7 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 } else if($_SERVER["REQUEST_METHOD"] == "POST") {
     try{
         $username = strtolower(htmlspecialchars($_POST["username"]));
-        $conn = new PDO("mysql:host=mysql;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
+        $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
         $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
         $stmt->bindParam(username, $username);
         $stmt->execute();
