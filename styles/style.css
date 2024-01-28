@@ -59,3 +59,17 @@ body {
 .form-group button:hover {
     background-color: #2187c4;
 }
+
+.create-account-link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.create-account-link a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.create-account-link a:hover {
+    text-decoration: underline;
+}

@@ -29,13 +29,23 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             <div class="form-group">
                 <button type="submit">Login</button>
             </div>
+            <div class="create-account-link">
+                <p>Don't have an account? <a href="/register.php">Create one</a></p>
+            </div>
         </form>
     </div>
 
 <?php
 } else if($_SERVER["REQUEST_METHOD"] == "POST") {
-    //$conn = new PDO("mysql:host=mysql;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
-    print_r($_POST);
+    $username = strtolower(htmlspecialchars($_POST["username"]));
+    $conn = new PDO("mysql:host=mysql;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
+    $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
+    $stmt->bindParam(username, $username);
+    $stmt->execute();
+    $result = $stmt->fetch();
+    print_r($result);
+    $stmt->closeCursor();
+    print_r($result);
 } else {
     echo "FORBIDDEN!";
 }

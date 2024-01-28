@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
                 <button type="submit">Login</button>
             </div>
             <div class="create-account-link">
-                <p>Don't have an account? <a href="/signup">Create one</a></p>
+                <p>Have an account? <a href="/login.php">Login</a></p>
             </div>
         </form>
     </div>
