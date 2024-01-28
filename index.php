@@ -17,7 +17,7 @@ try {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     echo "Welcome, " . $user['Name'] . " " . $user['Surname'] . "!";
-    echo "<a href='logout.php'>Log out</a>";
+    echo "<p><a href='logout.php'>Log out</a></p>";
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
