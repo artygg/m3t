@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['id'])) {
-    echo "FAULT";// Redirect to the login page if not logged in
+    header("Location: login.php");
     exit();
 }
 
@@ -16,9 +16,7 @@ try {
     $stmt->bindParam(':user_id', $userId);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Display user information on the dashboard
-    echo "Welcome, " . $user['name'] . " " . $user['surname'] . "!";
+    echo "Welcome, " . $user['Name'] . " " . $user['Surname'] . "!";
 
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();

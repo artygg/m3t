@@ -54,7 +54,6 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->execute();
         $rowCount = $stmt->rowCount();
         if($rowCount > 0) {
-            echo "Choose another username";
             throw new Exception("Username must be unique!");
         }
         $result = $stmt->fetch();
@@ -84,7 +83,8 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':surname', $surname);
         $stmt->execute();
-        $_SESSION["id"] =  $conn->lastInsertId();;
+        $_SESSION["id"] =  $conn->lastInsertId();
+        header("Location: index.php");
     } catch (Exception $e) {
         echo $e;
     }
