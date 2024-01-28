@@ -22,7 +22,5 @@ try {
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
-
-// Close the connection
 $pdo = null;
 ?>
