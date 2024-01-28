@@ -50,7 +50,6 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt = $conn->prepare("SELECT * FROM users WHERE Username LIKE :username LIMIT 1;");
         $stmt->bindParam('username', $username);
         $stmt->execute();
-        $stmt->closeCursor();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         print_r($user);
         if (!$user || !password_verify($password, $user['Password'])) {
@@ -59,6 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             $_SESSION["id"] =  $user["id"];
             header("Location: index.php");
         }
+        $stmt->closeCursor();
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
