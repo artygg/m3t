@@ -37,15 +37,26 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 
 <?php
 } else if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = strtolower(htmlspecialchars($_POST["username"]));
-    $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
-    $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
-    $stmt->bindParam(username, $username);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    print_r($result);
-    $stmt->closeCursor();
-    print_r($result);
+    try {
+        $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        if (empty($username) || empty($password)) {
+            throw new Exception("Username and password are required.");
+        }
+        $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
+        $stmt = $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
+        $stmt->bindParam(':username', $username);
+        $stmt->execute();
+        $stmt->closeCursor();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$user || !password_verify($password, $user['password'])) {
+            throw new Exception("Invalid username or password.");
+        }
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+    $_SESSION["auth"] = true;
+    header("Location: index.php");
 } else {
     echo "FORBIDDEN!";
 }
