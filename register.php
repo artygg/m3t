@@ -37,14 +37,18 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 
 <?php
 } else if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = strtolower(htmlspecialchars($_POST["username"]));
-    $conn = new PDO("mysql:host=mysql;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
-    $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
-    $stmt->bindParam(username, $username);
-    $stmt->execute();
-    $result = $stmt->fetch();
-    print_r($result);
-    $stmt->closeCursor();
+    try{
+        $username = strtolower(htmlspecialchars($_POST["username"]));
+        $conn = new PDO("mysql:host=mysql;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
+        $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
+        $stmt->bindParam(username, $username);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        print_r($result);
+        $stmt->closeCursor();
+    } catch (Exception $ex) {
+        echo($ex);
+    }
     print_r(empty($result));
 } else {
     echo "FORBIDDEN!";
