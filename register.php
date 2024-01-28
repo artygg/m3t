@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
     $result = $stmt->fetch();
     print_r($result);
     $stmt->closeCursor();
-    print_r($result);
+    print_r(empty($result));
 } else {
     echo "FORBIDDEN!";
 }
