@@ -52,6 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->execute();
         $stmt->closeCursor();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        print_r($user);
         if (!$user || !password_verify($password, $user['Password'])) {
             throw new Exception("Invalid username or password.");
         } else {
