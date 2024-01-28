@@ -76,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO users (Username, Password, Name, Surname) VALUES (:username, :password, :name, :surname)";
+        $sql = "INSERT INTO users (`Username`, `Password`, `Name`, `Surname`) VALUES (:username, :password, :name, :surname)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $hashedPassword);
@@ -84,7 +84,6 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $stmt->bindParam(':surname', $surname);
         $stmt->execute();
         $_SESSION["id"] =  $conn->lastInsertId();;
-        header("Location: index.php");
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
