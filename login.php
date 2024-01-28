@@ -44,6 +44,8 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             throw new Exception("Username and password are required.");
         }
         print_r($_POST);
+        print_r($username);
+        print_r($password);
         $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
         $stmt = $conn->prepare("SELECT * FROM users WHERE Username LIKE :username LIMIT 1;");
         $stmt->bindParam('username', $username);
