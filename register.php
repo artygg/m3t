@@ -50,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         $conn = new PDO("mysql:host=127.0.0.1:3306;dbname=m3t-web;charset=utf8", "eagle", "EagleEye11213");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt= $conn->prepare("SELECT * FROM users WHERE username = :username LIMIT 1;");
-        $stmt->bindParam(username, $username);
+        $stmt->bindParam('username', $username);
         $stmt->execute();
         $rowCount = $stmt->rowCount();
         if($rowCount > 0) {
